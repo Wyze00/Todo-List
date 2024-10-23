@@ -1,0 +1,66 @@
+* {
+    margin: 0px;
+    padding: 0px;
+    font-family: "Rethink Sans",sans-serif;
+
+}
+
+
+header {
+    background-image: linear-gradient(45deg,#fbbf24,#f59e0b);
+    color: white;
+    padding: 5px;
+    font-size: 1.2rem;
+    font-weight: 499;
+    position: sticky;
+    top: 0;
+    margin-bottom: 50px;
+
+}
+
+.container {
+    margin: 20px;
+}
+
+.tugas, .tugas-awal, .tugas-akhir {
+    max-width: 700px;
+    margin: auto;
+    background-image: linear-gradient(45deg, rgb(236, 236, 239), rgb(220, 218, 218));
+    padding: 35px;
+    border-radius: 10px;
+    margin-bottom: 50px;
+}
+
+.tugas p, .tugas-awal p, .tugas-akhir p {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.tugas #input-text, .tugas #input-date {
+    width: 100%;
+    padding: 7px;
+    border: 2px solid #facc15;
+    border-radius: 7px;
+}
+
+.tugas #input-button {
+    padding: 5px;
+    border: 2px solid #facc15;
+    border-radius: 7px;
+    font-size: 0.9rem;
+    background-color: white;
+}
+
+.time {
+    display: flex;
+    justify-content: space-between;
+    background-color: white;
+    padding: 10px;
+    border-radius: 10px;
+    margin-bottom: 20px;
+}
+
+.time p {
+    text-align: left;
+    margin-bottom: 0px;
+}

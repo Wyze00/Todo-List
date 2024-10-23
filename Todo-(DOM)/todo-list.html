@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Todo List</title>
+    <link rel="stylesheet" href="todo-list.css">
+    <!-- Font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Rethink+Sans:ital,wght@0,400..800;1,400..800&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <header>
+        <p>Todo List</p>
+    </header>
+
+    <div class="container">
+        
+        <div class="tugas">
+            <p>Tambahkan tugas yang mau dimasukkan</p>
+
+            <label for="input-text"><small>Tambahkan tugas disini</small></label><br>
+            <input type="text" name="input-text" id="input-text" placeholder="Masukkan Nama Tugas" required>
+
+            <br><br>
+
+            <label for="input-date"><small>Tentukkan Tanggal</small></label><br>
+            <input type="date" name="input-date" id="input-date" required>
+
+            <br><br>
+
+            <input type="button" name="input-button" id="input-button" value="Submit">
+        </div>
+
+        <div class="tugas-awal">
+            <p>Tugas yang belum diselesaikan</p>
+        </div>
+
+        <div class="tugas-akhir">
+            <p>Tugas yang sudah diselesaikan</p>
+
+        </div>
+
+    </div>
+
+    <script src="script.js"></script>
+    
+</body>
+</html>
