@@ -2,6 +2,33 @@ const button = document.getElementById('input-button');
 const awal = document.querySelector('.tugas-awal');
 const akhir = document.querySelector('.tugas-akhir');
 
+let tmpAwal = '';
+let tmpAkhir = '';
+
+if(localStorage.getItem('tugasAwal') == null){
+
+     localStorage.setItem('tugasAwal','[{"text":"test1","date":"1/1/1"}]');
+}
+
+if(localStorage.getItem('tugasAkhir') == null){
+
+    localStorage.setItem('tugasAkhir','[{"text":"test2","date":"1/1/1"}]');
+}
+
+tmpAwal = JSON.parse(localStorage.getItem('tugasAwal'));
+tmpAkhir = JSON.parse(localStorage.getItem('tugasAkhir'));
+
+tmpAwal.forEach(e => {
+    tambahAwal(e.text,e.date);
+});
+
+tmpAkhir.forEach(e => {
+    tambahAkhir(e.text,e.date);
+});
+
+
+// Interaktif
+
 button.addEventListener('click',() => {
 
     const text = document.getElementById('input-text').value;
@@ -77,3 +104,4 @@ function tambahAkhir(text,date){
 
     akhir.append(div);
 }
+
