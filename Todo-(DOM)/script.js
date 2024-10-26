@@ -7,12 +7,12 @@ let tmpAkhir = '';
 
 if(localStorage.getItem('tugasAwal') == null){
 
-     localStorage.setItem('tugasAwal','[{"text":"test1","date":"1/1/1"}]');
+     localStorage.setItem('tugasAwal','[]');
 }
 
 if(localStorage.getItem('tugasAkhir') == null){
 
-    localStorage.setItem('tugasAkhir','[{"text":"test2","date":"1/1/1"}]');
+    localStorage.setItem('tugasAkhir','[]');
 }
 
 tmpAwal = JSON.parse(localStorage.getItem('tugasAwal'));
@@ -25,7 +25,6 @@ tmpAwal.forEach(e => {
 tmpAkhir.forEach(e => {
     tambahAkhir(e.text,e.date);
 });
-
 
 // Interaktif
 
@@ -57,6 +56,17 @@ akhir.addEventListener('click',function(e){
 
     if(e.target.alt == 'trash'){
 
+        for(let i = 0; i<tmpAkhir.length; i++){
+
+            if(e.target.parentNode.parentNode.children[0].children[0].innerText == tmpAkhir[i].text){
+
+                tmpAkhir.splice(i,1);
+
+                localStorage.setItem('tugasAkhir', JSON.stringify(tmpAkhir))
+                break;
+            } 
+        }
+
         akhir.removeChild(e.target.parentNode.parentNode);
     }
 
@@ -64,6 +74,17 @@ akhir.addEventListener('click',function(e){
 
         const text = e.target.parentNode.parentNode.firstChild.children[0].innerText;
         const date = e.target.parentNode.parentNode.firstChild.children[1].innerText;
+
+        for(let i = 0; i<tmpAkhir.length; i++){
+
+            if(e.target.parentNode.parentNode.children[0].children[0].innerText == tmpAkhir[i].text){
+
+                tmpAkhir.splice(i,1);
+
+                localStorage.setItem('tugasAkhir', JSON.stringify(tmpAkhir))
+                break;
+            } 
+        }
 
         tambahAwal(text,date);
 
@@ -85,6 +106,35 @@ function tambahAwal(text,date){
                     </div>`
     
     awal.appendChild(div);
+
+    if(tmpAwal.length == 0){
+
+        tmpAwal.push({
+            text: text,
+            date: date
+        })
+
+        localStorage.setItem('tugasAwal',JSON.stringify(tmpAwal));
+
+    } else {
+        
+        for(let i = 0; i<tmpAwal.length; i++){
+    
+            if(tmpAwal[i].text == text){break;}
+            
+            if(i == tmpAwal.length-1 && tmpAwal[i].text != text){
+    
+                tmpAwal.push({
+                    text: text,
+                    date: date
+                })
+    
+                localStorage.setItem('tugasAwal',JSON.stringify(tmpAwal));
+                
+                break;
+            }
+        }
+    }
 }
 
 function tambahAkhir(text,date){
@@ -103,5 +153,18 @@ function tambahAkhir(text,date){
                      </div>`
 
     akhir.append(div);
+
+    for(let i = 0; i<tmpAwal.length; i++){
+
+        if(tmpAwal[i].text == text){
+
+            const tmp = tmpAwal.splice(i,1);
+            tmpAkhir.push(...tmp);
+
+            localStorage.setItem('tugasAwal',JSON.stringify(tmpAwal));
+            localStorage.setItem('tugasAkhir',JSON.stringify(tmpAkhir));
+            break;
+        }
+    }
 }
 
