@@ -10,21 +10,21 @@ const incomplete = document.getElementById("incompleteBookList");
 if(localStorage.getItem("bukuComplete") == null){
     localStorage.setItem("bukuComplete","[]");
 }
-if(localStorage.getItem("bukuUncomplete") == null){
-    localStorage.setItem("bukuUncomplete","[]");
+if(localStorage.getItem("bukuIncomplete") == null){
+    localStorage.setItem("bukuIncomplete","[]");
 }
 
 // Loop local storage nambah element
 
 const bukuComplete = JSON.parse(localStorage.getItem("bukuComplete"));
-const bukuUncomplete = JSON.parse(localStorage.getItem("bukuUncomplete"));
+const bukuIncomplete = JSON.parse(localStorage.getItem("bukuIncomplete"));
 
 bukuComplete.forEach((e) => {
-    tambahSelesai(e.judul,e.penulis,e.tahun,e.id);
+    tambahSelesai(e.title,e.author,e.year,e.id);
 })
 
-bukuUncomplete.forEach((e) => {
-    tambahBelumSelesai(e.judul,e.penulis,e.tahun,e.id);
+bukuIncomplete.forEach((e) => {
+    tambahBelumSelesai(e.title,e.author,e.year,e.id);
 })
 
 // Button tambah buku baru
@@ -83,21 +83,21 @@ search.addEventListener("click", (e) => {
             
             const e = bukuComplete[i];
 
-            if(e.judul.includes(text)) {
-                tambahSelesai(e.judul,e.penulis,e.tahun,e.id);
+            if(e.title.includes(text)) {
+                tambahSelesai(e.title,e.author,e.year,e.id);
             }
         }
     }
     
-    for(let i = 0; i<=bukuUncomplete.length; i++){
+    for(let i = 0; i<=bukuIncomplete.length; i++){
         
-        if(bukuUncomplete[i]){
+        if(bukuIncomplete[i]){
         
-            const e = bukuUncomplete[i];
+            const e = bukuIncomplete[i];
 
-            if(e.judul.includes(text)){
+            if(e.title.includes(text)){
 
-                tambahBelumSelesai(e.judul,e.penulis,e.tahun,e.id);
+                tambahBelumSelesai(e.title,e.author,e.year,e.id);
             }
         }
     }
@@ -162,12 +162,12 @@ incomplete.addEventListener("click", function(e){
 
         // Menghapus local storage
 
-        for(let i = 0; i<bukuUncomplete.length; i++){
+        for(let i = 0; i<bukuIncomplete.length; i++){
 
-            if(e.target.parentNode.parentNode.dataset["bookid"] == bukuUncomplete[i].id){
+            if(e.target.parentNode.parentNode.dataset["bookid"] == bukuIncomplete[i].id){
 
-                bukuUncomplete.splice(i,1);
-                localStorage.setItem("bukuUncomplete",JSON.stringify(bukuUncomplete));
+                bukuIncomplete.splice(i,1);
+                localStorage.setItem("bukuIncomplete",JSON.stringify(bukuIncomplete));
             }
         }
         
@@ -186,12 +186,12 @@ incomplete.addEventListener("click", function(e){
 
         // Menghapus local storage
 
-        for(let i = 0; i<bukuUncomplete.length; i++){
+        for(let i = 0; i<bukuIncomplete.length; i++){
 
-            if(e.target.parentNode.parentNode.dataset["bookid"] == bukuUncomplete[i].id){
+            if(e.target.parentNode.parentNode.dataset["bookid"] == bukuIncomplete[i].id){
 
-                bukuUncomplete.splice(i,1);
-                localStorage.setItem("bukuUncomplete",JSON.stringify(bukuUncomplete));
+                bukuIncomplete.splice(i,1);
+                localStorage.setItem("bukuIncomplete",JSON.stringify(bukuIncomplete));
             }
         }
 
@@ -227,7 +227,11 @@ function tambahSelesai(judul,penulis,tahun,id){
 
     if(bukuComplete.length == 0){
         bukuComplete.push({
-            judul,penulis,tahun,id
+            id,
+            title: judul,
+            author: penulis,
+            year: Number(tahun),
+            isComplete: true
         })
 
     } else {
@@ -240,7 +244,11 @@ function tambahSelesai(judul,penulis,tahun,id){
 
             if(i == bukuComplete.length-1 && bukuComplete[i].id != id){
                 bukuComplete.push({
-                    judul,penulis,tahun,id
+                    id,
+                    title: judul,
+                    author: penulis,
+                    year: Number(tahun),
+                    isComplete: true
                 })
             }
         }
@@ -273,26 +281,34 @@ function tambahBelumSelesai(judul,penulis,tahun,id ){
 
     // Set local storage
 
-    if(bukuUncomplete.length == 0){
-        bukuUncomplete.push({
-            judul,penulis,tahun,id
+    if(bukuIncomplete.length == 0){
+        bukuIncomplete.push({
+            id,
+            title: judul,
+            author: penulis,
+            year: Number(tahun),
+            isComplete: false
         })
 
     } else {
         
-        for(let i = 0; i<bukuUncomplete.length; i++){
+        for(let i = 0; i<bukuIncomplete.length; i++){
 
-            if(bukuUncomplete[i].id == id){
+            if(bukuIncomplete[i].id == id){
                 break;
             }
 
-            if(i == bukuUncomplete.length-1 && bukuUncomplete[i].id != id){
-                bukuUncomplete.push({
-                    judul,penulis,tahun,id
+            if(i == bukuIncomplete.length-1 && bukuIncomplete[i].id != id){
+                bukuIncomplete.push({
+                    id,
+                    title: judul,
+                    author: penulis,
+                    year: Number(tahun),
+                    isComplete: false
                 })
             }
         }
     }
 
-    localStorage.setItem("bukuUncomplete",JSON.stringify(bukuUncomplete));
+    localStorage.setItem("bukuIncomplete",JSON.stringify(bukuIncomplete));
 }
